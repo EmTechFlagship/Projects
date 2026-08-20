@@ -102,6 +102,34 @@ body.scrolled .topbar {
     color: var(--md-on-primary-container);
 }
 
+/* Social icon pinned to the top-right of the topbar */
+.topbar {
+    justify-content: center;
+}
+
+.topbar-social {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+}
+
+.topbar-social .social-icon {
+    fill: var(--md-on-surface-variant);
+    transition: fill 0.2s;
+}
+
+.topbar-social:hover .social-icon {
+    fill: var(--md-on-surface);
+}
+
+.topbar-social:hover {
+    background-color: var(--md-surface-container-high);
+}
+
 /* Page content */
 .content {
     flex: 1;
@@ -131,6 +159,52 @@ h1.page-title {
     gap: 16px;
     width: 100%;
     max-width: 960px;
+}
+
+/* Filter segmented control with sliding highlight */
+.filters {
+    position: relative;
+    display: inline-flex;
+    gap: 2px;
+    padding: 4px;
+    margin-bottom: 24px;
+    background-color: var(--md-surface-container-high);
+    border-radius: 999px;
+}
+
+.filter-slider {
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 4px;
+    width: 0;
+    background-color: var(--md-primary-container);
+    border-radius: 999px;
+    transition: left 0.25s cubic-bezier(0.2, 0, 0, 1), width 0.25s cubic-bezier(0.2, 0, 0, 1);
+    will-change: left, width;
+}
+
+.filter-btn {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.filter-btn:hover {
+    color: var(--md-on-surface);
+}
+
+.filter-btn.active {
+    color: var(--md-on-primary-container);
 }
 
 .projects-status {
@@ -185,6 +259,13 @@ h1.page-title {
     background-color: var(--md-surface-container-high);
     transform: translateY(-2px);
     box-shadow: var(--md-shadow);
+}
+
+/* Press / click animation */
+.project-card:not(.disabled):active {
+    transform: scale(0.94);
+    box-shadow: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .project-card.disabled:hover {
