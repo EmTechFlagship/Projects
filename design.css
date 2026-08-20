@@ -1,0 +1,109 @@
+/* Material 3 color tokens */
+:root {
+    color-scheme: light;
+    --md-primary: #6750A4;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #EADDFF;
+    --md-on-primary-container: #21005D;
+    --md-secondary-container: #E8DEF8;
+    --md-on-secondary-container: #1D192B;
+    --md-background: #FEF7FF;
+    --md-on-background: #1D1B20;
+    --md-surface: #FEF7FF;
+    --md-on-surface: #1D1B20;
+    --md-surface-container: #F3EDF7;
+    --md-surface-container-high: #ECE6F0;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+    color-scheme: dark;
+    --md-primary: #D0BCFF;
+    --md-on-primary: #381E72;
+    --md-primary-container: #4F378B;
+    --md-on-primary-container: #EADDFF;
+    --md-secondary-container: #4A4458;
+    --md-on-secondary-container: #E8DEF8;
+    --md-background: #000000; /* AMOLED pure black */
+    --md-on-background: #E6E1E5;
+    --md-surface: #000000; /* AMOLED pure black */
+    --md-on-surface: #E6E1E5;
+    --md-surface-container: #0F0F0F;
+    --md-surface-container-high: #1C1C1C;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    background-color: var(--md-background);
+    color: var(--md-on-background);
+    transition: background-color 0.25s, color 0.25s;
+}
+
+/* Top app bar */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--md-surface-container);
+    box-shadow: var(--md-shadow);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    transition: background-color 0.25s;
+}
+
+/* Topbar buttons */
+.topbar a {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--md-on-surface-variant);
+    background-color: transparent;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.topbar a:hover {
+    background-color: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+}
+
+.topbar a.active {
+    background-color: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+}
+
+/* Page content */
+.content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--md-on-surface);
+    letter-spacing: -0.5px;
+}
