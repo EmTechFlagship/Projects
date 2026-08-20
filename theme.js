@@ -2,6 +2,13 @@
 (() => {
     const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
+    // Frosted glass topbar: transparent at top, translucent + blur when scrolled
+    (function topbarScrolled() {
+        const onScroll = () => document.body.classList.toggle('scrolled', window.scrollY > 8);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+
     // Auto-highlight the current page in the topbar (prevents stale or wrong active states)
     (function highlightCurrentPage() {
         const current = location.pathname.split('/').pop() || 'index.html';

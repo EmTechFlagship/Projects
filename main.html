@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects</title>
+    <script>
+        /* Apply theme before CSS renders to prevent light/dark flash */
+        document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
     <link rel="stylesheet" href="design.css">
     <script src="theme.js" defer></script>
 </head>
@@ -13,7 +17,9 @@
         <a href="about.html">About</a>
     </nav>
     <main class="content">
-        <h1>Projects</h1>
+        <h1 class="page-title">All Projects</h1>
+        <section class="projects" id="projects"></section>
     </main>
+    <script src="projects.js" defer></script>
 </body>
 </html>
