@@ -1,3 +1,23 @@
+/* Google Sans font (served from cdnfonts as "Product Sans") */
+@font-face {
+    font-family: 'Google Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Google Sans'), url('https://fonts.cdnfonts.com/s/14955/ProductSans-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'Google Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Google Sans'), url('https://fonts.cdnfonts.com/s/14955/ProductSans-Medium.woff') format('woff');
+}
+@font-face {
+    font-family: 'Google Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Google Sans'), url('https://fonts.cdnfonts.com/s/14955/ProductSans-Bold.woff') format('woff');
+}
+
 /* Material 3 color tokens */
 :root {
     color-scheme: light;
@@ -50,7 +70,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    font-family: 'Google Sans', 'Product Sans', 'Segoe UI', Arial, sans-serif;
     background-color: var(--md-background);
     color: var(--md-on-background);
     transition: background-color 0.25s, color 0.25s;
