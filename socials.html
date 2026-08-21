@@ -5,8 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socials</title>
     <script>
-        /* Apply theme before CSS renders to prevent light/dark flash */
-        document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        /* Apply saved settings before CSS renders to prevent light/dark flash */
+        (function () {
+            var s = {};
+            try { s = JSON.parse(localStorage.getItem('emapple.settings')) || {}; } catch (e) { s = {}; }
+            var t = s.theme || 'auto';
+            if (t === 'light' || t === 'dark') {
+                document.documentElement.setAttribute('data-theme', t);
+            } else {
+                document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            }
+            if (s.textSize) document.documentElement.setAttribute('data-text-size', s.textSize);
+            if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
+        })();
     </script>
     <link rel="stylesheet" href="design.css">
     <script src="theme.js" defer></script>
@@ -21,9 +32,13 @@
             <span class="material-symbols-rounded nav-icon" aria-hidden="true">view_list</span>
             Projects
         </a>
-        <a href="socials.html" class="active">
+        <a href="socials.html">
             <span class="material-symbols-rounded nav-icon" aria-hidden="true">groups</span>
             Socials
+        </a>
+        <a href="settings.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">settings</span>
+            Settings
         </a>
     </nav>
     <main class="content">

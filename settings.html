@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <script>
+        /* Apply saved settings before CSS renders to prevent light/dark flash */
+        (function () {
+            var s = {};
+            try { s = JSON.parse(localStorage.getItem('emapple.settings')) || {}; } catch (e) { s = {}; }
+            var t = s.theme || 'auto';
+            if (t === 'light' || t === 'dark') {
+                document.documentElement.setAttribute('data-theme', t);
+            } else {
+                document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            }
+            if (s.textSize) document.documentElement.setAttribute('data-text-size', s.textSize);
+            if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
+        })();
+    </script>
+    <link rel="stylesheet" href="design.css">
+    <script src="theme.js" defer></script>
+</head>
+<body>
+    <nav class="topbar">
+        <a href="main.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">home</span>
+            Home
+        </a>
+        <a href="projects.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">view_list</span>
+            Projects
+        </a>
+        <a href="socials.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">groups</span>
+            Socials
+        </a>
+        <a href="settings.html" class="active">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">settings</span>
+            Settings
+        </a>
+    </nav>
+    <main class="content">
+        <p class="eyebrow">Settings</p>
+        <h1 class="page-title">Make it yours.</h1>
+        <p class="hero-subtitle">Tune the look and feel — saved on this device.</p>
+        <section class="settings" id="settings" aria-label="Site settings">
+            <div class="settings-card">
+                <p class="setting-label">Appearance</p>
+                <p class="setting-desc">Choose your theme, or follow your system.</p>
+                <div class="option-row" role="group" aria-label="Appearance">
+                    <button type="button" class="option-btn" data-setting="theme" data-value="light">Light</button>
+                    <button type="button" class="option-btn" data-setting="theme" data-value="dark">Dark</button>
+                    <button type="button" class="option-btn" data-setting="theme" data-value="auto">System</button>
+                </div>
+            </div>
+            <div class="settings-card">
+                <p class="setting-label">Text Size</p>
+                <p class="setting-desc">Adjust the base text size across the site.</p>
+                <div class="option-row" role="group" aria-label="Text size">
+                    <button type="button" class="option-btn" data-setting="textSize" data-value="small">Small</button>
+                    <button type="button" class="option-btn" data-setting="textSize" data-value="normal">Default</button>
+                    <button type="button" class="option-btn" data-setting="textSize" data-value="large">Large</button>
+                </div>
+            </div>
+            <div class="settings-card">
+                <p class="setting-label">Accent Color</p>
+                <p class="setting-desc">Changes highlights, buttons, and active states.</p>
+                <div class="accent-swatches" role="group" aria-label="Accent color">
+                    <button type="button" class="accent-swatch" data-setting="accent" data-value="blue" style="background: #4F7CF6" aria-label="Blue"></button>
+                    <button type="button" class="accent-swatch" data-setting="accent" data-value="purple" style="background: #8A5CF3" aria-label="Purple"></button>
+                    <button type="button" class="accent-swatch" data-setting="accent" data-value="green" style="background: #2F9E5C" aria-label="Green"></button>
+                    <button type="button" class="accent-swatch" data-setting="accent" data-value="orange" style="background: #F2741C" aria-label="Orange"></button>
+                    <button type="button" class="accent-swatch" data-setting="accent" data-value="pink" style="background: #E44E8B" aria-label="Pink"></button>
+                    <button type="button" class="accent-swatch" data-setting="accent" data-value="red" style="background: #E5484D" aria-label="Red"></button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
