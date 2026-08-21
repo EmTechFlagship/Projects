@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script>
+        /* Apply saved settings before CSS renders to prevent light/dark flash */
+        (function () {
+            var s = {};
+            try { s = JSON.parse(localStorage.getItem('emapple.settings')) || {}; } catch (e) { s = {}; }
+            var t = s.theme || 'auto';
+            if (t === 'light' || t === 'dark') {
+                document.documentElement.setAttribute('data-theme', t);
+            } else {
+                document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            }
+            if (s.textSize) {
+                var m = { small: 85, normal: 100, large: 120 };
+                var ts = typeof s.textSize === 'number' ? s.textSize : (m[s.textSize] || 100);
+                document.documentElement.style.fontSize = (16 * ts / 100) + 'px';
+            }
+            if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
+        })();
+    </script>
+    <link rel="stylesheet" href="Design/design.css">
+    <script src="theme.js" defer></script>
+    <script src="home.js" defer></script>
+</head>
+<body>
+    <nav class="topbar">
+        <a href="main.html" class="active">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">home</span>
+            Home
+        </a>
+        <a href="projects.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">view_list</span>
+            Projects
+        </a>
+        <a href="socials.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">groups</span>
+            Socials
+        </a>
+        <a href="settings.html">
+            <span class="material-symbols-rounded nav-icon" aria-hidden="true">settings</span>
+            Settings
+        </a>
+    </nav>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Hero Banner Card -->
+        <div class="card hero-card">
+            <img class="hero-image" src="Images/Grad.jpeg" alt="Emiry">
+            <div class="hero-overlay">
+                <span class="greeting">Passions</span>
+                <h1>Emiry has a big passion for Apple &amp; iOS</h1>
+            </div>
+        </div>
+
+        <!-- Bento Grid Middle Row -->
+        <div class="bento-row">
+            <div class="card quote-card">
+                <span class="quote-mark">“</span>
+                <p>I'm a Instagram influencer, tech journalist, and creator focused on Apple &amp; iOS</p>
+                <span class="quote-mark right">”</span>
+            </div>
+
+            <div class="card feature-card">
+                <p class="preview-text">Apple is so unique with their design philosophy.</p>
+                <span class="tag">Apple News Guy</span>
+            </div>
+
+            <div class="card grid-card">
+                <div class="grid-background"></div>
+                <span class="tag">IG Influencer</span>
+            </div>
+        </div>
+
+        <!-- About Me Card -->
+        <div class="card about-card">
+            <h2>About Me</h2>
+            <p>I'm 228Emiry or EmAppleFlagship, I have an obsession with Traffic Signals and Tech</p>
+        </div>
+    </main>
+</body>
+</html>
