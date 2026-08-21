@@ -15,15 +15,11 @@
             } else {
                 document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             }
-            if (s.textSize) {
-                var m = { small: 85, normal: 100, large: 120 };
-                var ts = typeof s.textSize === 'number' ? s.textSize : (m[s.textSize] || 100);
-                document.documentElement.style.fontSize = (16 * ts / 100) + 'px';
-            }
+            if (s.textSize) document.documentElement.setAttribute('data-text-size', s.textSize);
             if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
         })();
     </script>
-    <link rel="stylesheet" href="design.css">
+    <link rel="stylesheet" href="Design/design.css">
     <script src="theme.js" defer></script>
 </head>
 <body>
@@ -47,8 +43,7 @@
     </nav>
     <main class="content">
         <p class="eyebrow">Socials</p>
-        <h1 class="page-title">Come say hi.</h1>
-        <p class="hero-subtitle">Everywhere I post and share — scroll to see them all.</p>
+        <h1 class="page-title">Add me on everything!</h1>
         <section class="socials" aria-label="Social media links">
             <a class="social-card" href="https://www.instagram.com/emappleflagship/" target="_blank" rel="noopener" style="--reveal-delay:0ms">
                 <span class="social-card-icon" aria-hidden="true">

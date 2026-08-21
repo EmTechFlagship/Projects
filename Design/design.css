@@ -895,14 +895,16 @@ body::before {
 
 /* Entrance animation (mirrors project-card) */
 .main-content > .card,
-.main-content .bento-row > .card {
+.main-content .bento-row > .card,
+.settings > .settings-card {
     opacity: 0;
     transform-origin: center;
     animation: cardZoomOut 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .main-content > .card.loaded,
-.main-content .bento-row > .card.loaded {
+.main-content .bento-row > .card.loaded,
+.settings > .settings-card.loaded {
     animation: none;
     opacity: 1;
 }
@@ -922,7 +924,8 @@ body::before {
 
 @media (prefers-reduced-motion: reduce) {
     .main-content > .card,
-    .main-content .bento-row > .card {
+    .main-content .bento-row > .card,
+    .settings > .settings-card {
         animation: none;
         opacity: 1;
     }
@@ -1139,5 +1142,43 @@ body::before {
 
     .hero-overlay {
         padding: 32px 28px;
+    }
+}
+
+/* ---------- "In Development" notice banner ---------- */
+.dev-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    padding: 9px 16px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--md-on-primary-container);
+    background-color: var(--md-primary-container);
+    border-bottom: 1px solid var(--md-outline-variant);
+}
+
+/* Sidebar layout: banner spans only the content area so it clears the fixed sidebar */
+@media (min-width: 701px) {
+    .dev-banner {
+        left: 224px;
+        border-left: 1px solid var(--md-outline-variant);
+        border-bottom-left-radius: 12px;
+    }
+}
+
+/* Mobile: banner sits above the sticky pill nav */
+@media (max-width: 700px) {
+    .dev-banner {
+        position: relative;
+    }
+
+    .topbar {
+        top: 10px;
     }
 }
