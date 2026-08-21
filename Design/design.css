@@ -873,7 +873,7 @@ body::before {
     box-shadow: 0 0 0 2px var(--md-background), 0 0 0 5px var(--md-primary);
 }
 
-/* ---------- Home: bento layout (main.html) ---------- */
+/* ---------- Home: bento layout (index.html) ---------- */
 /* Mirrors .content so the page stays centered next to the sidebar */
 .main-content {
     position: relative;
