@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Projects</title>
     <script>
         /* Apply theme before CSS renders to prevent light/dark flash */
         document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -13,11 +13,11 @@
 </head>
 <body>
     <nav class="topbar">
-        <a href="main.html" class="active">
+        <a href="main.html">
             <span class="material-symbols-rounded nav-icon" aria-hidden="true">home</span>
             Home
         </a>
-        <a href="projects.html">
+        <a href="projects.html" class="active">
             <span class="material-symbols-rounded nav-icon" aria-hidden="true">view_list</span>
             Projects
         </a>
@@ -27,20 +27,18 @@
         </a>
     </nav>
     <main class="content">
-        <p class="eyebrow">About</p>
-        <h1 class="page-title">Making things<br>worth opening.</h1>
-        <section class="section intro-grid">
-            <div>
-                <p class="eyebrow">The short version</p>
-                <h2 class="section-heading">Technology should feel less distant.</h2>
-            </div>
-            <p class="intro-note">I am EmTechFlagship. I build software, explore Apple platforms, and keep a running collection of ideas that are too interesting to leave as sketches.</p>
-        </section>
-        <section class="section">
-            <p class="eyebrow">Around here</p>
-            <h2 class="section-heading">Projects, experiments, and a little bit of beautiful chaos.</h2>
-            <a class="section-link" href="projects.html">See the work</a>
-        </section>
+        <p class="eyebrow">Selected work / open source</p>
+        <h1 class="page-title">Things I've<br>built.</h1>
+        <p class="hero-subtitle">A living archive of tools and experiments made for Apple platforms and curious people.</p>
+        <div class="filters" id="filters">
+            <span class="filter-slider" id="filterSlider"></span>
+            <button type="button" class="filter-btn active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="archived">Archived</button>
+            <button type="button" class="filter-btn" data-filter="disabled">Disabled</button>
+            <button type="button" class="filter-btn" data-filter="unavailable">Unavailable</button>
+        </div>
+        <section class="projects" id="projects"></section>
     </main>
+    <script src="projects.js" defer></script>
 </body>
 </html>
