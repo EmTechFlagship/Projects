@@ -15,7 +15,11 @@
             } else {
                 document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             }
-            if (s.textSize) document.documentElement.setAttribute('data-text-size', s.textSize);
+            if (s.textSize) {
+                var m = { small: 85, normal: 100, large: 120 };
+                var ts = typeof s.textSize === 'number' ? s.textSize : (m[s.textSize] || 100);
+                document.documentElement.style.fontSize = (16 * ts / 100) + 'px';
+            }
             if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
         })();
     </script>
@@ -41,21 +45,43 @@
             Settings
         </a>
     </nav>
-    <main class="content">
-        <p class="eyebrow">About</p>
-        <h1 class="page-title">Making things<br>worth opening.</h1>
-        <section class="section intro-grid">
-            <div>
-                <p class="eyebrow">The short version</p>
-                <h2 class="section-heading">Technology should feel less distant.</h2>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Hero Banner Card -->
+        <div class="card hero-card">
+            <img class="hero-image" src="Images/Resized_Senior_2025-RENA_DSC00211_copy.jpeg" alt="Portrait of Emiry">
+            <div class="hero-overlay">
+                <span class="greeting">Hey, I'm</span>
+                <h1>Emiry</h1>
+                <p class="subtitle">Aka EmAppleFlagship</p>
             </div>
-            <p class="intro-note">I am EmTechFlagship. I build software, explore Apple platforms, and keep a running collection of ideas that are too interesting to leave as sketches.</p>
-        </section>
-        <section class="section">
-            <p class="eyebrow">Around here</p>
-            <h2 class="section-heading">Projects, experiments, and a little bit of beautiful chaos.</h2>
-            <a class="section-link" href="projects.html">See the work</a>
-        </section>
+        </div>
+
+        <!-- Bento Grid Middle Row -->
+        <div class="bento-row">
+            <div class="card quote-card">
+                <span class="quote-mark">“</span>
+                <p>I'm an Instagram influencer, tech journalist, and creator focused on Apple &amp; iOS.</p>
+                <span class="quote-mark right">”</span>
+            </div>
+
+            <div class="card feature-card">
+                <p class="preview-text">Apple is so unique with their design philosophy.</p>
+                <span class="tag">Apple News Guy</span>
+            </div>
+
+            <div class="card grid-card">
+                <div class="grid-background"></div>
+                <span class="tag">IG Influencer</span>
+            </div>
+        </div>
+
+        <!-- About Me Card -->
+        <div class="card about-card">
+            <h2>About Me</h2>
+            <p>I'm Josh Skinner, a freelance UI/UX designer and tech journalist...</p>
+        </div>
     </main>
+    <script src="home.js" defer></script>
 </body>
 </html>

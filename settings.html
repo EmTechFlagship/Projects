@@ -15,7 +15,11 @@
             } else {
                 document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             }
-            if (s.textSize) document.documentElement.setAttribute('data-text-size', s.textSize);
+            if (s.textSize) {
+                var m = { small: 85, normal: 100, large: 120 };
+                var ts = typeof s.textSize === 'number' ? s.textSize : (m[s.textSize] || 100);
+                document.documentElement.style.fontSize = (16 * ts / 100) + 'px';
+            }
             if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
         })();
     </script>
@@ -57,12 +61,13 @@
             </div>
             <div class="settings-card">
                 <p class="setting-label">Text Size</p>
-                <p class="setting-desc">Adjust the base text size across the site.</p>
-                <div class="option-row" role="group" aria-label="Text size">
-                    <button type="button" class="option-btn" data-setting="textSize" data-value="small">Small</button>
-                    <button type="button" class="option-btn" data-setting="textSize" data-value="normal">Default</button>
-                    <button type="button" class="option-btn" data-setting="textSize" data-value="large">Large</button>
+                <p class="setting-desc">Drag to adjust the base text size.</p>
+                <div class="text-size-row">
+                    <span class="text-size-label size-small" aria-hidden="true">A</span>
+                    <input type="range" id="textSizeSlider" class="text-size-slider" min="80" max="150" step="5" value="100" aria-label="Text size">
+                    <span class="text-size-label size-large" aria-hidden="true">A</span>
                 </div>
+                <p class="text-size-value" id="textSizeValue">100%</p>
             </div>
             <div class="settings-card">
                 <p class="setting-label">Accent Color</p>

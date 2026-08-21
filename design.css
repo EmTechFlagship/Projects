@@ -447,9 +447,9 @@ body::before {
 .content {
     position: relative;
     z-index: 1;
-    width: min(1080px, calc(100% - 248px));
-    margin: 0 auto 0 224px;
-    padding: 100px 0 120px;
+    width: min(1080px, 100%);
+    margin: 0 auto;
+    padding: 100px 0 120px 224px;
 }
 .content.centered { min-height: calc(100vh - 80px); }
 .page-title {
@@ -490,7 +490,7 @@ body::before {
     .topbar::before { display: none; }
     .topbar a { width: auto; min-height: 40px; justify-content: center; padding-inline: 13px; font-size: .82rem; }
     .topbar-social { display: none; }
-    .content { width: min(100% - 28px, 1080px); margin: 0 auto; padding-top: 76px; }
+    .content { width: min(100% - 28px, 1080px); margin: 0 auto; padding: 76px 0 0; }
     .intro-grid, .projects { grid-template-columns: 1fr; gap: 16px; }
     .section { margin-top: 92px; }
 }
@@ -659,12 +659,42 @@ body::before {
 }
 
 /* Text size scaling (root font-size drives all rem values) */
-html[data-text-size="small"] {
-    font-size: 14px;
+
+/* Text size slider (settings page) */
+.text-size-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
 }
 
-html[data-text-size="large"] {
-    font-size: 18px;
+.text-size-slider {
+    flex: 1;
+    accent-color: var(--md-primary);
+    cursor: pointer;
+}
+
+.text-size-label {
+    font-weight: 500;
+    line-height: 1;
+    color: var(--md-on-surface-variant);
+    user-select: none;
+}
+
+.text-size-label.size-small {
+    font-size: 0.85rem;
+}
+
+.text-size-label.size-large {
+    font-size: 1.5rem;
+}
+
+.text-size-value {
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--md-on-surface-variant);
+    text-align: right;
 }
 
 /* Accent color palettes (Material 3 style light/dark pairs) */
@@ -841,4 +871,273 @@ html[data-text-size="large"] {
 
 .accent-swatch.active {
     box-shadow: 0 0 0 2px var(--md-background), 0 0 0 5px var(--md-primary);
+}
+
+/* ---------- Home: bento layout (main.html) ---------- */
+/* Mirrors .content so the page stays centered next to the sidebar */
+.main-content {
+    position: relative;
+    z-index: 1;
+    width: min(1080px, 100%);
+    margin: 0 auto;
+    padding: 100px 0 120px 224px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card {
+    background-color: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: 16px;
+    box-shadow: var(--md-shadow);
+}
+
+/* Entrance animation (mirrors project-card) */
+.main-content > .card,
+.main-content .bento-row > .card {
+    opacity: 0;
+    transform-origin: center;
+    animation: cardZoomOut 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.main-content > .card.loaded,
+.main-content .bento-row > .card.loaded {
+    animation: none;
+    opacity: 1;
+}
+
+@keyframes cardZoomOut {
+    from {
+        opacity: 0;
+        transform: scale(1.35);
+        filter: blur(4px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .main-content > .card,
+    .main-content .bento-row > .card {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* Hero banner card */
+.hero-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 360px;
+    display: flex;
+    align-items: flex-end;
+    background:
+        radial-gradient(120% 160% at 85% -20%, var(--md-primary-container) 0%, transparent 60%),
+        linear-gradient(135deg, var(--md-surface-container-high), var(--md-surface-container));
+}
+
+.hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Scrim so the overlay text stays readable over the photo */
+.hero-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.25) 45%, transparent 75%);
+    pointer-events: none;
+}
+
+.hero-overlay {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 40px 48px;
+}
+
+.greeting {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-overlay h1 {
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: 0.02em;
+    color: #FFFFFF;
+}
+
+.subtitle {
+    margin: 8px 0 0;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Bento middle row */
+.bento-row {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 1fr;
+    gap: 14px;
+}
+
+.bento-row .card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-height: 200px;
+    padding: 26px 28px;
+}
+
+/* Quote card */
+.quote-card {
+    position: relative;
+    justify-content: space-between;
+    background:
+        radial-gradient(100% 120% at 100% 100%, var(--md-secondary-container) 0%, transparent 55%),
+        var(--md-surface-container);
+}
+
+.quote-card p {
+    margin: 0;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--md-on-surface);
+}
+
+.quote-mark {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3.2rem;
+    line-height: 0.6;
+    color: var(--md-primary);
+    user-select: none;
+}
+
+.quote-mark.right {
+    align-self: flex-end;
+}
+
+/* Feature card */
+.feature-card {
+    justify-content: space-between;
+    background:
+        linear-gradient(160deg, var(--md-surface-container-high) 0%, var(--md-surface-container) 70%);
+}
+
+.preview-text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-style: italic;
+    color: var(--md-on-surface-variant);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* Grid (pattern) card */
+.grid-card {
+    position: relative;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.grid-background {
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    background-image:
+        linear-gradient(var(--md-outline-variant) 1px, transparent 1px),
+        linear-gradient(90deg, var(--md-outline-variant) 1px, transparent 1px);
+    background-size: 24px 24px;
+    transition: opacity 0.2s;
+}
+
+.grid-card:hover .grid-background {
+    opacity: 0.55;
+}
+
+.grid-card .tag {
+    position: relative;
+    z-index: 1;
+}
+
+/* Tag pill */
+.tag {
+    align-self: flex-start;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--md-on-primary-container);
+    background-color: var(--md-primary-container);
+}
+
+/* About card */
+.about-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px 32px;
+}
+
+.about-card h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--md-on-surface);
+}
+
+.about-card p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--md-on-surface-variant);
+    max-width: 720px;
+}
+
+/* Hover lift for all cards */
+.card {
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--md-shadow);
+}
+
+@media (max-width: 700px) {
+    .main-content {
+        width: min(100% - 28px, 1080px);
+        margin: 0 auto;
+        padding: 76px 0 0;
+    }
+
+    .bento-row {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-overlay {
+        padding: 32px 28px;
+    }
 }

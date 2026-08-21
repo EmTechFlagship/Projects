@@ -15,9 +15,19 @@
         const s = readSettings();
         return {
             theme: s.theme || 'auto',        // auto | light | dark
-            textSize: s.textSize || 'normal', // small | normal | large
+            textSize: normalizeTextSize(s.textSize), // percentage of base (default 100)
             accent: s.accent || 'blue',      // blue | purple | green | orange | pink | red
         };
+    }
+    // Accepts the current percentage (number/string) or legacy labels.
+    function normalizeTextSize(v) {
+        const n = Number(v);
+        if (v !== '' && v != null && !Number.isNaN(n) && isFinite(n)) {
+            return Math.min(150, Math.max(80, n));
+        }
+        if (v === 'small') return 85;
+        if (v === 'large') return 120;
+        return 100; // default / normal
     }
     const prefs = getPrefs();
 
@@ -28,8 +38,12 @@
     }
     function applyAppearance() {
         applyTheme(darkQuery.matches);
-        document.documentElement.setAttribute('data-text-size', prefs.textSize);
+        applyTextSize(prefs.textSize);
         document.documentElement.setAttribute('data-accent', prefs.accent);
+    }
+    // Scale the root font-size so every rem-based size (and text) scales.
+    function applyTextSize(percent) {
+        document.documentElement.style.fontSize = (16 * percent / 100) + 'px';
     }
 
     /* ---------- Frosted topbar: transparent at top, translucent + blur when scrolled ---------- */
@@ -82,7 +96,6 @@
                 saveSettings({ theme: prefs.theme, textSize: prefs.textSize, accent: prefs.accent });
 
                 if (setting === 'theme') applyTheme(darkQuery.matches);
-                if (setting === 'textSize') document.documentElement.setAttribute('data-text-size', prefs.textSize);
                 if (setting === 'accent') document.documentElement.setAttribute('data-accent', prefs.accent);
 
                 buttons.forEach((other) => {
@@ -92,5 +105,20 @@
                 });
             });
         });
+
+        // Text-size slider (continuous percentage, 80–150%).
+        const slider = document.getElementById('textSizeSlider');
+        const valueLabel = document.getElementById('textSizeValue');
+        if (slider) {
+            slider.value = prefs.textSize;
+            if (valueLabel) valueLabel.textContent = Math.round(prefs.textSize) + '%';
+            slider.addEventListener('input', () => {
+                const percent = Number(slider.value);
+                prefs.textSize = percent;
+                saveSettings({ theme: prefs.theme, textSize: prefs.textSize, accent: prefs.accent });
+                applyTextSize(percent);
+                if (valueLabel) valueLabel.textContent = Math.round(percent) + '%';
+            });
+        }
     }
 })();

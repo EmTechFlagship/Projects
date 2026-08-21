@@ -15,7 +15,11 @@
             } else {
                 document.documentElement.setAttribute('data-theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
             }
-            if (s.textSize) document.documentElement.setAttribute('data-text-size', s.textSize);
+            if (s.textSize) {
+                var m = { small: 85, normal: 100, large: 120 };
+                var ts = typeof s.textSize === 'number' ? s.textSize : (m[s.textSize] || 100);
+                document.documentElement.style.fontSize = (16 * ts / 100) + 'px';
+            }
             if (s.accent) document.documentElement.setAttribute('data-accent', s.accent);
         })();
     </script>
